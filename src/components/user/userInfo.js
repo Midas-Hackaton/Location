@@ -48,8 +48,11 @@ function UserInfo() {
 
   return (
     <S.UserMapContainer>
+      <S.Center>
+      <S.Image src={`${JSON.parse(localStorage.getItem("user")).photoURL}`}/>
+      <S.Name>{JSON.parse(localStorage.getItem("user")).displayName}</S.Name>
       {localStorage.getItem("userCompany").length < 0 ? (
-        <div style={{ marginTop: "10px", marginLeft: "40px" }}>
+        <div style={{ marginTop: "10px"}}>
           <input
             type="text"
             onChange={(e) => {
@@ -60,10 +63,11 @@ function UserInfo() {
           <button onClick={companySubmit}>회사정보 등록하기</button>
         </div>
       ) : (
-        <div style={{ marginTop: "150px", marginLeft: "40px" }}>
+        <div style={{ marginTop: "40px"}}>
           <Timer />
         </div>
       )}
+      </S.Center>
       <MapInfo />
     </S.UserMapContainer>
   );
