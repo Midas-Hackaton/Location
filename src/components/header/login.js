@@ -72,7 +72,9 @@ function Login() {
             src={userData.photoURL}
             alt="유저의 프사"
           />
-          {userData && <S.User_Name>{userData.displayName}</S.User_Name>}
+          <h2>
+            {userData && <S.User_Name>{userData.displayName}</S.User_Name>}
+          </h2>
 
           <S.Toggle_box
             onClick={() => {
