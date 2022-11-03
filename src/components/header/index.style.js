@@ -5,11 +5,14 @@ export const HeaderContainer = styled.div`
   height: 100px;
   background-color: #6e42ea;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
+  padding: 0 10%;
+  box-sizing: border-box;
 `;
 
 export const LogoContainer = styled.div`
+  margin-left: 40px;
   cursor: pointer;
 `;
 
@@ -17,6 +20,11 @@ export const LoginContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-around;
+  a {
+    font-size: 20px;
+    color: white;
+    margin-right: 30px;
+  }
   h2 {
     margin: 0 1rem;
   }
@@ -78,6 +86,7 @@ export const User_Image = styled.img`
   border-radius: 100px;  
   box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.25);
   margin-left: 20px;
+  cursor: pointer;
 `
 
 export const User_Name = styled.span`
@@ -134,7 +143,7 @@ export const Toggle_menu_box = styled.div`
   border-radius: 30px;
   position: absolute;
   top: 90px;
-  right: 380px;
+  right: 13.5%;
 
   display: flex;
   flex-direction: column;

@@ -2,11 +2,11 @@ import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import React, { useState } from "react";
 import { auth } from "../../util/auth/firebase";
 import { deleteCookie, getCookie, setCookie } from "../../util/cookie/cookie";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AlertImg from "../../assets/img/logo/alert.png";
 import LogoutImg from "../../assets/img/logo/Logout.png";
 import GoogleLogo from "../../assets/img/logo/Google_Logo.png";
-import * as S from "./index.style"
+import * as S from "./index.style";
 function Login() {
   const navigate = useNavigate();
 
@@ -66,7 +66,7 @@ function Login() {
       {isLogin ? (
         <S.User_box>
           <S.Alert_Image src={AlertImg} />
-          <S.User_Image src={userData.photoURL} alt="유저의 프사" />
+          <S.User_Image onClick={() => navigate('/user')} src={userData.photoURL} alt="유저의 프사" />
           {userData && <S.User_Name>{userData.displayName}</S.User_Name>}
           
           <S.Toggle_box onClick={() => {
