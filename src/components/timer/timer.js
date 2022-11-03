@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import useDidMountEffect from "../../hooks/useDidMountEffect";
+import { useDidMountEffect } from "../../hooks/useDidMountEffect";
 
 //타이머
 const Main = () => {
