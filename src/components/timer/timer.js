@@ -1,20 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import useDidMountEffect from "../../hooks/useDidMountEffect";
-
 //타이머
 const Main = () => {
   let arrSeconds = [],
     arrLeftSeconds = [];
   let sendSeconds = 0,
     sendLeftSeconds = 0;
-  const [leftHours, setLeftHour] = useState(40);
+  const [leftHours, setLeftHour] = useState(8);
   const [leftMinutes, setLeftMinutes] = useState(0);
   const [leftSeconds, setLeftSeconds] = useState(0);
 
   const [hours, setHour] = useState(0);
   const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(0);
-  const [btnCh, setBtnCh] = useState(false);
+  const [btnCh, setBtnCh] = useState(true);
 
   // 시, 분, 초 -> 초 변환
   const secondsCal = (e) => {
@@ -57,7 +56,7 @@ const Main = () => {
       sendSeconds = secondsCal(arrSeconds);
       sendLeftSeconds = secondsCal(arrLeftSeconds);
       console.log("send", sendSeconds);
-      sendLeftSeconds = 144000 - 1;
+      sendLeftSeconds = 28800 - 1;
       sendLeftSeconds = sendLeftSeconds - sendSeconds;
       console.log("send", sendLeftSeconds);
       arrLeftSeconds = HMSCal(sendLeftSeconds);
@@ -91,16 +90,14 @@ const Main = () => {
     <div className="main">
       <div>
         <h2>
-          {hours < 10 ? `0${hours}` : hours}:
-          {minutes < 10 ? `0${minutes}` : minutes}:
+          {hours}:{minutes < 10 ? `0${minutes}` : minutes}:
           {seconds < 10 ? `0${seconds}` : seconds}
         </h2>
       </div>
       <div>
         <h2>
           <span>남은시간 </span>
-          {leftHours < 10 ? `0${leftHours}` : leftHours}:
-          {leftMinutes < 10 ? `0${leftMinutes}` : leftMinutes}:
+          {leftHours}:{leftMinutes < 10 ? `0${leftMinutes}` : leftMinutes}:
           {leftSeconds < 10 ? `0${leftSeconds}` : leftSeconds}
         </h2>
       </div>
