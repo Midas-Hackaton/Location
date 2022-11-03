@@ -48,17 +48,22 @@ function UserInfo() {
 
   return (
     <S.UserMapContainer>
-      <div style={{ marginTop: "10px", marginLeft: "40px" }}>
-        <input
-          type="text"
-          onChange={(e) => {
-            setCompanyName(e.target.value);
-          }}
-          placeholder={`회사의 초대코드 (24자리)`}
-        />
-        <button onClick={companySubmit}>회사정보 등록하기</button>
-        <Timer />
-      </div>
+      {localStorage.getItem("userCompany").length < 0 ? (
+        <div style={{ marginTop: "10px", marginLeft: "40px" }}>
+          <input
+            type="text"
+            onChange={(e) => {
+              setCompanyName(e.target.value);
+            }}
+            placeholder={`회사의 초대코드 (24자리)`}
+          />
+          <button onClick={companySubmit}>회사정보 등록하기</button>
+        </div>
+      ) : (
+        <div style={{ marginTop: "150px", marginLeft: "40px" }}>
+          <Timer />
+        </div>
+      )}
       <MapInfo />
     </S.UserMapContainer>
   );

@@ -4,6 +4,7 @@ import { auth } from "../../util/auth/firebase";
 import { deleteCookie, getCookie, setCookie } from "../../util/cookie/cookie";
 import { Link, useNavigate } from "react-router-dom";
 import * as S from "./index.style";
+import googleLove from "../../assets/img/main/google_login.svg";
 function Login() {
   const navigate = useNavigate();
 
@@ -62,7 +63,7 @@ function Login() {
           <button onClick={handleGoogleLogout}>로그아웃</button>
         </S.LoginContainer>
       ) : (
-        <button onClick={handleGoogleLogin}>로그인</button>
+        <img src={googleLove} alt="" onClick={handleGoogleLogin} />
       )}
     </div>
   );
