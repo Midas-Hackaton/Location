@@ -7,18 +7,14 @@ import { getLocation } from "../../util/map";
 export const app = initializeApp(firebaseConfig);
 
 const Main = () => {
-  let arrSeconds = [],
-    arrLeftSeconds = [];
-  let sendSeconds = 0,
-    sendLeftSeconds = 0;
-  const [localLeftTime, setLocalLeftTime] = useState(28800);
-
-  const [leftHours, setLeftHour] = useState(8);
+  const [leftHours, setLeftHour] = useState(0); // 남은 일 시간
   const [leftMinutes, setLeftMinutes] = useState(0);
   const [leftSeconds, setLeftSeconds] = useState(0);
-  const [hours, setHour] = useState(0);
+
+  const [hours, setHour] = useState(0); // 현재 일한 시간
   const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(0);
+
   const [btnCh, setBtnCh] = useState(false);
 
   const db = getDatabase();
@@ -45,60 +41,29 @@ const Main = () => {
 
   useEffect(() => {
     onValue(userRef, (response) => {
-      if (response.val().leftTime) {
-        setLocalLeftTime(response.val().leftTime);
-        const leftTimeArr = HMSCal(response.val().leftTime);
-        const workTimeArr = HMSCal(28800 - response.val().leftTime);
-        setLeftHour(leftTimeArr[0]);
-        setLeftMinutes(leftTimeArr[1]);
-        setLeftSeconds(leftTimeArr[2]);
-        setHour(workTimeArr[0]);
-        setMinutes(workTimeArr[1]);
-        setSeconds(workTimeArr[2]);
-      } else {
-        const leftTimeArr = HMSCal(response.val().leftTime);
-        const workTimeArr = HMSCal(28800 - response.val().leftTime);
-        setLeftHour(leftTimeArr[0]);
-        setLeftMinutes(leftTimeArr[1]);
-        setLeftSeconds(leftTimeArr[2]);
-        setHour(workTimeArr[0]);
-        setMinutes(workTimeArr[1]);
-        setSeconds(workTimeArr[2]);
-      }
+      console.log(response.val().leftTime);
+      console.log(HMSCal(response.val().leftTime));
+      const leftTimeArr = HMSCal(response.val().leftTime);
+      setLeftHour(leftTimeArr[0]);
+      setLeftMinutes(leftTimeArr[1]);
+      setLeftSeconds(leftTimeArr[2]);
     });
 
     const countdown = setInterval(() => {
-      if (parseInt(seconds) < 60 && btnCh) {
-        setSeconds(parseInt(seconds) + 1);
+      if (parseInt(seconds) > 0) {
+        setSeconds(parseInt(seconds) - 1);
       }
-
-      if (parseInt(seconds) === 59 && parseInt(minutes) === 59) {
-        setHour(parseInt(hours) + 1);
-        setMinutes(0);
-        setSeconds(0);
-      } else if (parseInt(seconds) === 59) {
-        setMinutes(parseInt(minutes) + 1);
-        setSeconds(0);
+      if (parseInt(seconds) === 0) {
+        if (parseInt(minutes) === 0) {
+          clearInterval(countdown);
+        } else {
+          setMinutes(parseInt(minutes) - 1);
+          setSeconds(59);
+        }
       }
 
       if (btnCh) {
-        arrSeconds.push(hours, minutes, seconds);
-        arrLeftSeconds.push(leftHours, leftMinutes, leftSeconds);
-        sendSeconds = secondsCal(arrSeconds);
-        sendLeftSeconds = secondsCal(arrLeftSeconds);
-        sendLeftSeconds = localLeftTime - 1;
-        sendLeftSeconds = sendLeftSeconds - sendSeconds;
-        arrLeftSeconds = HMSCal(sendLeftSeconds);
-        console.log(arrLeftSeconds);
-        console.log(arrSeconds);
-        setLeftHour(arrLeftSeconds[0]);
-        setLeftMinutes(arrLeftSeconds[1]);
-        setLeftSeconds(arrLeftSeconds[2]);
-        setHour(arrSeconds[0]);
-        setMinutes(arrSeconds[1]);
-        setSeconds(arrSeconds[2]);
-        arrSeconds = [];
-        arrLeftSeconds = [];
+        setLeftSeconds(seconds - 1);
       }
     }, 1000);
 

@@ -8,18 +8,6 @@ export default function KakaoMap() {
   const [lat, setLat] = React.useState();
   const [lng, setLng] = React.useState();
 
-  const db = getDatabase();
-  const userRef = ref(
-    db,
-    `userInfo/${JSON.parse(localStorage.getItem("user")).uid}`
-  );
-
-  const getData = () => {
-    onValue(userRef, (response) => {
-      return response.val();
-    });
-  };
-
   React.useEffect(() => {
     getLocation().then((response) => {
       setLat(response.latitude);
