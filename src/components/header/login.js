@@ -19,8 +19,9 @@ function Login() {
     signInWithPopup(auth, provider) // popup을 이용한 signup
       .then((data) => {
         setUserData(data.user); // user data 설정
-        localStorage.setItem("user", JSON.stringify(data.user));
         setCookie("token", data._tokenResponse.oauthAccessToken);
+        localStorage.setItem("user", JSON.stringify(data.user));
+
         refreshPage();
       })
       .catch((err) => {
@@ -29,6 +30,8 @@ function Login() {
   }
   function handleGoogleLogout() {
     localStorage.removeItem("user");
+    localStorage.removeItem("companyName");
+    localStorage.removeItem("userCompany");
     deleteCookie("token");
     refreshPage();
   }
