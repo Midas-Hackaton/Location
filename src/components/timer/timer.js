@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import useDidMountEffect from "../../hooks/useDidMountEffect";
+import {useDidMountEffect} from "../../hooks/useDidMountEffect";
 
-//타이머
 const Main = () => {
   let arrSeconds = [],
     arrLeftSeconds = [];
@@ -69,7 +68,7 @@ const Main = () => {
       arrLeftSeconds = [];
     }, 1000);
     return () => clearInterval(countdown);
-  }, [hours, minutes, seconds, btnCh]);
+  }, [btnCh]);
 
   const BtnClick = () => {
     if (btnCh) {

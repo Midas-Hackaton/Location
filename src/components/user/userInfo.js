@@ -8,6 +8,8 @@ export const app = initializeApp(firebaseConfig);
 
 function UserInfo() {
   const db = getDatabase();
+  const [companyName, setCompanyName] = React.useState("");
+  const [userData, setUserData] = React.useState();
   const userRef = ref(
     db,
     `userInfo/${JSON.parse(localStorage.getItem("user")).uid}`
@@ -26,21 +28,39 @@ function UserInfo() {
         email: localStorageUserData.email,
         profile_picture: localStorageUserData.photoURL,
         space: [response.latitude, response.longitude], // 유저의 현재 위치
+        company: localStorage.getItem("userCompany"),
       });
     });
+  };
+
+  const companySubmit = () => {
+    localStorage.setItem("userCompany", companyName);
+    alert("회사코드가 등록되었습니다.");
   };
 
   React.useEffect(() => {
     try {
       const localStorageUserData = JSON.parse(localStorage.getItem("user"));
+      setUserData(JSON.parse(localStorage.getItem("user")));
       console.log(localStorageUserData);
       setData(localStorageUserData);
     } catch {
       return console.log("비로그인");
     }
-  }, [getData]);
+  }, []);
 
-  return <div>유저인포</div>;
+  return (
+    <div>
+      <input
+        type="text"
+        onChange={(e) => {
+          setCompanyName(e.target.value);
+        }}
+      />
+      {/* <div>{userData.displayName}</div> */}
+      <button onClick={companySubmit}>회사정보 등록하기</button>
+    </div>
+  );
 }
 
 export default UserInfo;
