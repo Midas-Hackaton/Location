@@ -1,7 +1,7 @@
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import React from "react";
 import { auth } from "../../util/auth/firebase";
-import { deleteCookie, getCookie, setCookie } from "../../util/cookie";
+import { deleteCookie, getCookie, setCookie } from "../../util/cookie/cookie";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
