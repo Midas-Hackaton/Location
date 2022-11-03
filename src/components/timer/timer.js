@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import useDidMountEffect from "../../hooks/useDidMountEffect";
 
 //타이머
 const Main = () => {
@@ -36,7 +37,7 @@ const Main = () => {
     return [parseInt(Hour), parseInt(Minute), parseInt(Second)];
   };
 
-  useEffect(() => {
+  useDidMountEffect(() => {
     const countdown = setInterval(() => {
       if (parseInt(seconds) < 60 && btnCh) {
         setSeconds(parseInt(seconds) + 1);
