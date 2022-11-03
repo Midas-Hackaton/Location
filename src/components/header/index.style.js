@@ -138,6 +138,7 @@ export const Triangle = styled.div`
 
 export const Toggle_menu_box = styled.div`
   width: 150px;
+  z-index: 999;
   height: 205px;
   background: #FFFFFF;
   box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.5);

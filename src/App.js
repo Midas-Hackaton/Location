@@ -27,7 +27,7 @@ function App() {
           <div>
             <h1>회사가 없으신가요?</h1>
             <h1 style={{ textDecoration: "underline" }}>
-              회사에 들어가거나 만드세요!
+              회사에 들어가시거나 만드세요!
             </h1>
             <S.ButtonContainer>
               {isCompanyBallon ? (

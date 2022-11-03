@@ -114,7 +114,7 @@ const Main = () => {
   };
 
   return (
-    <div className="main">
+    <div className="main" style={{ marginLeft: "50px" }}>
       {isSpace ? (
         <div>지정된 장소입니다.</div>
       ) : (
@@ -146,18 +146,6 @@ const Main = () => {
           {btnCh ? <span>휴식하기</span> : <span>근무하기</span>}
         </button>
       </div>
-      <div>
-        <h2>
-          <span>남은시간 </span>
-          {leftHours}:{leftMinutes < 10 ? `0${leftMinutes}` : leftMinutes}:
-          {leftSeconds < 10 ? `0${leftSeconds}` : leftSeconds}
-        </h2>
-      </div>
-      {setBtnCh ? (
-        <button onClick={BtnClick}>중지</button>
-      ) : (
-        <button onClick={BtnClick}>시작</button>
-      )}
     </div>
   );
 };
