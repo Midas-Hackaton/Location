@@ -15,11 +15,7 @@ function UserInfo() {
     `userInfo/${JSON.parse(localStorage.getItem("user")).uid}`
   );
 
-  const getData = () => {
-    onValue(userRef, (response) => {
-      return response.val();
-    });
-  };
+
 
   const setData = (localStorageUserData) => {
     getLocation().then((response) => {

@@ -3,7 +3,7 @@ import React from "react";
 import { auth } from "../../util/auth/firebase";
 import { deleteCookie, getCookie, setCookie } from "../../util/cookie/cookie";
 import { useNavigate } from "react-router-dom";
-
+import * as S from "./index.style"
 function Login() {
   const navigate = useNavigate();
 
@@ -51,13 +51,17 @@ function Login() {
   return (
     <div>
       {isLogin ? (
-        <div>
-          <button onClick={handleGoogleLogout}>Logout</button>
-          <img src={userData.photoURL} alt="유저의 프사" />
-          {userData && userData.displayName}
-        </div>
+        <S.LoginContainer>
+          <img
+            src={userData.photoURL}
+            alt="유저의 프사"
+            style={{ borderRadius: "50%" }}
+          />
+          <h2>{userData && userData.displayName}님</h2>
+          <button onClick={handleGoogleLogout}>로그아웃</button>
+        </S.LoginContainer>
       ) : (
-        <button onClick={handleGoogleLogin}>Login</button>
+        <button onClick={handleGoogleLogin}>로그인</button>
       )}
     </div>
   );
