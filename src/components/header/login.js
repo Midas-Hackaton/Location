@@ -7,7 +7,6 @@ import AlertImg from "../../assets/img/logo/alert.png";
 import LogoutImg from "../../assets/img/logo/Logout.png";
 import GoogleLogo from "../../assets/img/logo/Google_Logo.png";
 import * as S from "./index.style";
-import googleLove from "../../assets/img/main/google_login.svg";
 function Login() {
   const navigate = useNavigate();
 
@@ -54,7 +53,10 @@ function Login() {
 
   const Logout_question = () => {
     let answer = window.confirm("정말로 로그아웃 하시겠습니까?");
-    if (answer) handleGoogleLogout();
+    if (answer) {
+      navigate('/');
+      handleGoogleLogout()
+    };
   };
 
   const [Data, setData] = useState({
@@ -67,10 +69,10 @@ function Login() {
       {isLogin ? (
         <S.User_box>
           <S.Alert_Image src={AlertImg} />
-          <S.User_Image
-            onClick={() => navigate("/user")}
+          <S.User_Image 
+            onClick={() => navigate('/user')}
             src={userData.photoURL}
-            alt="유저의 프사"
+            alt="유저의 프사" 
           />
           <h2>
             {userData && <S.User_Name>{userData.displayName}</S.User_Name>}
@@ -126,7 +128,10 @@ function Login() {
           />
         </S.User_box>
       ) : (
-        <button onClick={handleGoogleLogin}>로그인</button>
+        <S.Button_box onClick={handleGoogleLogin}>
+          <img src={GoogleLogo} width='35px' height='35px' />
+          <S.Button_span>Google로 로그인하기</S.Button_span>
+        </S.Button_box>
       )}
     </div>
   );

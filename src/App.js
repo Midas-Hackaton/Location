@@ -1,27 +1,21 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { getCookie } from "./util/cookie/cookie";
 import * as S from "./App.style";
 import Clock from "./assets/img/main/clock.svg";
 import Company from "./assets/img/main/company.svg";
 function App() {
-  const [isCompany, setIsCompany] = React.useState(true);
+  const [isCompany, setIsCompany] = React.useState(false);
   const [isCompanyBallon, setIsCompanyBallon] = React.useState(false);
 
   const [companyName, setCompanyName] = React.useState("");
 
   React.useEffect(() => {
-    setIsCompany(localStorage.getItem("userCompany").length > 0);
+    setIsCompany(localStorage.getItem("userCompany").length == 0 && getCookie("token"));
   }, []);
 
   return (
     <>
-      <S.MainContainer>
-        <div>
-          <h1>모두를 위한 유연근무제</h1>
-          <h1 style={{ textDecoration: "underline" }}>지금 시작하세요</h1>
-        </div>
-        <img src={Clock} alt="" />
-      </S.MainContainer>
       {isCompany ? (
         <S.MainCompanyContainer>
           <div>
@@ -76,7 +70,13 @@ function App() {
           <img src={Company} alt="" />
         </S.MainCompanyContainer>
       ) : (
-        <></>
+        <S.MainContainer>
+          <div>
+            <h1>모두를 위한 유연근무제</h1>
+            <h1 style={{ textDecoration: "underline" }}>지금 시작하세요</h1>
+          </div>
+          <img src={Clock} alt="" />
+        </S.MainContainer>
       )}
     </>
   );
