@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 
 //타이머
 const Main = () => {
+  let localLeftTiem = 28800;
   let arrSeconds = [],
     arrLeftSeconds = [];
   let sendSeconds = 0,
@@ -59,7 +60,7 @@ const Main = () => {
         sendSeconds = secondsCal(arrSeconds);
         sendLeftSeconds = secondsCal(arrLeftSeconds);
         console.log("send", sendSeconds);
-        sendLeftSeconds = 28800 - 1;
+        sendLeftSeconds = localLeftTiem - 1;
         sendLeftSeconds = sendLeftSeconds - sendSeconds;
         console.log("send", sendLeftSeconds);
         arrLeftSeconds = HMSCal(sendLeftSeconds);
@@ -77,13 +78,15 @@ const Main = () => {
   const BtnClick = () => {
     if (btnCh) {
       setBtnCh(false);
-      arrSeconds.push(hours, minutes, seconds);
-      setSeconds(0);
-      setMinutes(0);
-      setHour(0);
-      console.log(arrSeconds);
-      sendSeconds = secondsCal(arrSeconds);
-      console.log("send", sendSeconds);
+      // arrSeconds.push(hours, minutes, seconds);
+      // setSeconds(0);
+      // setMinutes(0);
+      // setHour(0);
+      // console.log(arrSeconds);
+      // sendSeconds = secondsCal(arrSeconds);
+      // console.log("send111", sendSeconds);
+      // localLeftTiem = secondsCal([leftHours, leftMinutes, leftSeconds]);
+      // console.log("left send111", localLeftTiem);
     } else {
       setBtnCh(true);
     }
