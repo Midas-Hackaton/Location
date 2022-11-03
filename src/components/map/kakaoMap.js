@@ -2,17 +2,29 @@ import React from "react";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
 import { getLocation } from "../../util/map/index";
 
-export default async function KakaoMap() {
-  const gsLocation = await getLocation();
-  console.info(`gsLocation: ${JSON.stringify(gsLocation)}`);
+export default function KakaoMap() {
+  const [lat, setLat] = React.useState();
+  const [lng, setLng] = React.useState();
+  console.log(
+    getLocation().then((response) => {
+      setLat(response.latitude);
+      setLng(response.longitude);
+    })
+  );
   return (
-    <Map
-      center={{ lat: 33.5563, lng: 126.79581 }}
-      style={{ width: "100%", height: "360px" }}
-    >
-      <MapMarker position={{ lat: 33.55635, lng: 126.795841 }}>
-        <div style={{ color: "#000" }}>Hello World!</div>
-      </MapMarker>
-    </Map>
+    <>
+      {lat ? (
+        <Map
+          center={{ lat: lat, lng: lng }}
+          style={{ width: "100%", height: "360px" }}
+        >
+          <MapMarker position={{ lat: lat, lng: lng }}>
+            <span style={{ color: "#000" }}>현재 나의 위치</span>
+          </MapMarker>
+        </Map>
+      ) : (
+        <></>
+      )}
+    </>
   );
 }
