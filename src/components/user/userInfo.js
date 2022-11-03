@@ -3,6 +3,9 @@ import { initializeApp } from "firebase/app";
 import { getDatabase, onValue, push, ref, set } from "firebase/database";
 import { firebaseConfig } from "../../config/firebaseConfig";
 import { getLocation } from "../../util/map";
+import * as S from "./userInfo.style";
+import Timer from "../timer/timer";
+import MapInfo from "../map/kakaoMap";
 
 export const app = initializeApp(firebaseConfig);
 
@@ -14,8 +17,6 @@ function UserInfo() {
     db,
     `userInfo/${JSON.parse(localStorage.getItem("user")).uid}`
   );
-
-
 
   const setData = (localStorageUserData) => {
     getLocation().then((response) => {
@@ -65,7 +66,6 @@ function UserInfo() {
       )}
       <MapInfo />
     </S.UserMapContainer>
-
   );
 }
 

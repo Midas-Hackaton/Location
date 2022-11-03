@@ -55,11 +55,11 @@ function Login() {
   const Logout_question = () => {
     let answer = window.confirm("정말로 로그아웃 하시겠습니까?");
     if (answer) handleGoogleLogout();
-  }
+  };
 
   const [Data, setData] = useState({
-    data: '기타',
-    rotate: '0deg'
+    data: "기타",
+    rotate: "0deg",
   });
 
   return (
@@ -67,30 +67,61 @@ function Login() {
       {isLogin ? (
         <S.User_box>
           <S.Alert_Image src={AlertImg} />
-          <S.User_Image onClick={() => navigate('/user')} src={userData.photoURL} alt="유저의 프사" />
+          <S.User_Image
+            onClick={() => navigate("/user")}
+            src={userData.photoURL}
+            alt="유저의 프사"
+          />
           {userData && <S.User_Name>{userData.displayName}</S.User_Name>}
-          
-          <S.Toggle_box onClick={() => {
-            if (Data.rotate == '180deg') {
-              setData({...Data, rotate: '0deg'});
-            } else {
-              setData({...Data, rotate: '180deg'});
-            }
-          }}>
+
+          <S.Toggle_box
+            onClick={() => {
+              if (Data.rotate == "180deg") {
+                setData({ ...Data, rotate: "0deg" });
+              } else {
+                setData({ ...Data, rotate: "180deg" });
+              }
+            }}
+          >
             {Data.data}
             <S.Triangle rotate={Data.rotate} />
           </S.Toggle_box>
 
-          { Data.rotate == '180deg' &&
+          {Data.rotate == "180deg" && (
             <S.Toggle_menu_box>
-              <S.Toggle_item onClick={() => setData({data: '퇴근', rotate: '0deg'})}>퇴근</S.Toggle_item>
-              <S.Toggle_item onClick={() => setData({data: '출근 중', rotate: '0deg'})}>출근 중</S.Toggle_item>
-              <S.Toggle_item onClick={() => setData({data: '회의 중', rotate: '0deg'})}>회의 중</S.Toggle_item>
-              <S.Toggle_item onClick={() => setData({data: '휴식 중', rotate: '0deg'})}>휴식 중</S.Toggle_item>
-              <S.Toggle_item bottom='none' onClick={() => setData({data: '기타', rotate: '0deg'})}>기타</S.Toggle_item>
+              <S.Toggle_item
+                onClick={() => setData({ data: "퇴근", rotate: "0deg" })}
+              >
+                퇴근
+              </S.Toggle_item>
+              <S.Toggle_item
+                onClick={() => setData({ data: "출근 중", rotate: "0deg" })}
+              >
+                출근 중
+              </S.Toggle_item>
+              <S.Toggle_item
+                onClick={() => setData({ data: "회의 중", rotate: "0deg" })}
+              >
+                회의 중
+              </S.Toggle_item>
+              <S.Toggle_item
+                onClick={() => setData({ data: "휴식 중", rotate: "0deg" })}
+              >
+                휴식 중
+              </S.Toggle_item>
+              <S.Toggle_item
+                bottom="none"
+                onClick={() => setData({ data: "기타", rotate: "0deg" })}
+              >
+                기타
+              </S.Toggle_item>
             </S.Toggle_menu_box>
-          }
-          <S.Alert_Image src={LogoutImg} onClick={() => Logout_question()} alt="로그아웃" />
+          )}
+          <S.Alert_Image
+            src={LogoutImg}
+            onClick={() => Logout_question()}
+            alt="로그아웃"
+          />
         </S.User_box>
       ) : (
         <button onClick={handleGoogleLogin}>로그인</button>
