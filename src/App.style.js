@@ -5,6 +5,7 @@ export const MainContainer = styled.div`
   justify-content: space-around;
   align-items: center;
   margin-top: 80px;
+  padding: 30px;
   h1 {
     font-size: 80px;
   }
@@ -35,6 +36,7 @@ export const ButtonContainer = styled.div`
 
 export const MainCompanyContainer = styled.div`
   display: flex;
+  padding: 30px;
   justify-content: space-around;
   align-items: center;
   margin-top: 80px;

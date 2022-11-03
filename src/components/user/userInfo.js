@@ -5,7 +5,7 @@ import { firebaseConfig } from "../../config/firebaseConfig";
 import { getLocation } from "../../util/map";
 import * as S from "./userInfo.style";
 import Timer from "../timer/timer";
-import MapInfo from "../map/kakaoMap";
+import Main from "../Main/Main";
 
 export const app = initializeApp(firebaseConfig);
 
@@ -49,26 +49,26 @@ function UserInfo() {
   return (
     <S.UserMapContainer>
       <S.Center>
-      <S.Image src={`${JSON.parse(localStorage.getItem("user")).photoURL}`}/>
-      <S.Name>{JSON.parse(localStorage.getItem("user")).displayName}</S.Name>
-      {localStorage.getItem("userCompany").length < 0 ? (
-        <div style={{ marginTop: "10px"}}>
-          <input
-            type="text"
-            onChange={(e) => {
-              setCompanyName(e.target.value);
-            }}
-            placeholder={`회사의 초대코드 (24자리)`}
-          />
-          <button onClick={companySubmit}>회사정보 등록하기</button>
-        </div>
-      ) : (
-        <div style={{ marginTop: "40px"}}>
-          <Timer />
-        </div>
-      )}
+        <S.Image src={`${JSON.parse(localStorage.getItem("user")).photoURL}`} />
+        <S.Name>{JSON.parse(localStorage.getItem("user")).displayName}</S.Name>
+        {localStorage.getItem("userCompany") != null ? (
+          <div style={{ marginTop: "10px" }}>
+            <input
+              type="text"
+              onChange={(e) => {
+                setCompanyName(e.target.value);
+              }}
+              placeholder={`회사의 초대코드 (24자리)`}
+            />
+            <button onClick={companySubmit}>회사정보 등록하기</button>
+          </div>
+        ) : (
+          <div style={{ marginTop: "40px" }}>
+            <Timer />
+          </div>
+        )}
       </S.Center>
-      <MapInfo />
+      <Main />
     </S.UserMapContainer>
   );
 }

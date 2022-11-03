@@ -28,7 +28,7 @@ export const Image = styled.img`
   height: 200px;
   border-radius: 100px;
   margin-top: 53px;
-  box-shadow: 0 0 40px 20px rgba(0, 234, 51, 0.7);
+  box-shadow: 0 0 40px 20px red;
 `
 
 export const Center = styled.div`

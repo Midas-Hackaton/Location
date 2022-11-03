@@ -114,11 +114,14 @@ const Main = () => {
   };
 
   return (
-    <div className="main" style={{ marginLeft: "50px" }}>
+    <div
+      className="main"
+      style={{ marginLeft: "50px", boxSizing: "border-box" }}
+    >
       {isSpace ? (
-        <div>지정된 장소입니다.</div>
+        <h1 style={{ margin: "0" }}>지정된 장소입니다.</h1>
       ) : (
-        <div>지정된 장소가 아닙니다.</div>
+        <h1 style={{ margin: "0" }}>지정된 장소가 아닙니다.</h1>
       )}
       <div>
         <h2>

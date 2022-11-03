@@ -35,7 +35,7 @@ export default function KakaoMap() {
         <>
           <Map
             center={{ lat: lat, lng: lng }}
-            style={{ width: "70%", height: "500px", margin: "0 auto" }}
+            style={{ width: "100%", height: "500px", margin: "0 auto" }}
           >
             <MapMarker position={{ lat: lat, lng: lng }}>
               <span style={{ color: "#000" }}>현재 나의 위치</span>
