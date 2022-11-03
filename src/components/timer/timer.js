@@ -1,9 +1,39 @@
 import React, { useState, useEffect } from "react";
-//import { useDidMountEffect } from "../../hooks/useDidMountEffect";
+import { getDatabase, onValue, push, ref, set } from "firebase/database";
+import { getLocation } from "../../util/map";
 
 //타이머
 const Main = () => {
-  let localLeftTiem = 28800;
+  const db = getDatabase();
+  const [isSpace, setIsSpace] = React.useState(false);
+  const [mylocation, setMylocation] = React.useState({
+    latitude: 0,
+    longitude: 0,
+  });
+  const userRef = ref(
+    db,
+    `userInfo/${JSON.parse(localStorage.getItem("user")).uid}`
+  );
+  const setData = () => {
+    getLocation().then((response) => {
+      setMylocation(response);
+      onValue(userRef, (response) => {
+        console.log(mylocation);
+        console.log(response.val());
+
+        const gap =
+          Math.abs(mylocation.latitude - response.val().space[0]) +
+          Math.abs(mylocation.longitude - response.val().space[1]);
+        console.log(gap);
+        if (gap > 0.001) {
+          setIsSpace(false);
+        } else {
+          setIsSpace(true);
+        }
+      });
+    });
+  };
+  let [localLeftTime, setLocalLeftTime] = useState(28800);
   let arrSeconds = [],
     arrLeftSeconds = [];
   let sendSeconds = 0,
@@ -17,7 +47,7 @@ const Main = () => {
   const [seconds, setSeconds] = useState(0);
   const [btnCh, setBtnCh] = useState(false);
 
-  // 시, 분, 초 -> 초 변환
+  // [시, 분, 초] -> 초 변환
   const secondsCal = (e) => {
     console.log(e[0]);
     let allSeconds = 0;
@@ -26,7 +56,7 @@ const Main = () => {
     return allSeconds;
   };
 
-  // 초 -> 시, 분, 초 변환
+  // 초 -> [시, 분, 초] 변환
   const HMSCal = (e) => {
     let Hour = 0,
       Minute = 0,
@@ -39,6 +69,7 @@ const Main = () => {
   };
 
   useEffect(() => {
+    setData();
     const countdown = setInterval(() => {
       if (parseInt(seconds) < 60 && btnCh) {
         setSeconds(parseInt(seconds) + 1);
@@ -60,7 +91,7 @@ const Main = () => {
         sendSeconds = secondsCal(arrSeconds);
         sendLeftSeconds = secondsCal(arrLeftSeconds);
         console.log("send", sendSeconds);
-        sendLeftSeconds = localLeftTiem - 1;
+        sendLeftSeconds = localLeftTime - 1;
         sendLeftSeconds = sendLeftSeconds - sendSeconds;
         console.log("send", sendLeftSeconds);
         arrLeftSeconds = HMSCal(sendLeftSeconds);
@@ -76,25 +107,24 @@ const Main = () => {
   }, [seconds, btnCh]);
 
   const BtnClick = () => {
-    if (btnCh) {
-      setBtnCh(false);
-      // arrSeconds.push(hours, minutes, seconds);
-      // setSeconds(0);
-      // setMinutes(0);
-      // setHour(0);
-      // console.log(arrSeconds);
-      // sendSeconds = secondsCal(arrSeconds);
-      // console.log("send111", sendSeconds);
-      // localLeftTiem = secondsCal([leftHours, leftMinutes, leftSeconds]);
-      // console.log("left send111", localLeftTiem);
+    if (isSpace) {
+      if (btnCh) {
+        setBtnCh(false);
+      } else {
+        setBtnCh(true);
+      }
     } else {
-      setBtnCh(true);
+      alert("지정된 장소를 벗어나서 업무를 할 수 없습니다.");
     }
-    console.log(btnCh);
   };
 
   return (
     <div className="main">
+      {isSpace ? (
+        <div>지정된 장소입니다.</div>
+      ) : (
+        <div>지정된 장소가 아닙니다.</div>
+      )}
       <div>
         <h2>
           {hours}:{minutes < 10 ? `0${minutes}` : minutes}:
@@ -108,7 +138,11 @@ const Main = () => {
           {leftSeconds < 10 ? `0${leftSeconds}` : leftSeconds}
         </h2>
       </div>
-      <button onClick={BtnClick}>시작</button>
+      {setBtnCh ? (
+        <button onClick={BtnClick}>중지</button>
+      ) : (
+        <button onClick={BtnClick}>시작</button>
+      )}
     </div>
   );
 };
