@@ -1,8 +1,11 @@
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import React from "react";
+import React, { useState } from "react";
 import { auth } from "../../util/auth/firebase";
 import { deleteCookie, getCookie, setCookie } from "../../util/cookie/cookie";
 import { Link, useNavigate } from "react-router-dom";
+import AlertImg from "../../assets/img/logo/alert.png";
+import LogoutImg from "../../assets/img/logo/Logout.png";
+import GoogleLogo from "../../assets/img/logo/Google_Logo.png";
 import * as S from "./index.style";
 import googleLove from "../../assets/img/main/google_login.svg";
 function Login() {
@@ -49,21 +52,48 @@ function Login() {
     }
   }, []);
 
+  const Logout_question = () => {
+    let answer = window.confirm("정말로 로그아웃 하시겠습니까?");
+    if (answer) handleGoogleLogout();
+  }
+
+  const [Data, setData] = useState({
+    data: '기타',
+    rotate: '0deg'
+  });
+
   return (
-    <div style={{ marginRight: "30px" }}>
+    <div>
       {isLogin ? (
-        <S.LoginContainer>
-          <Link to={`/user`}>내 근무</Link>
-          <img
-            src={userData.photoURL}
-            alt="유저의 프사"
-            style={{ borderRadius: "50%" }}
-          />
-          <h2>{userData && userData.displayName}님</h2>
-          <button onClick={handleGoogleLogout}>로그아웃</button>
-        </S.LoginContainer>
+        <S.User_box>
+          <S.Alert_Image src={AlertImg} />
+          <S.User_Image onClick={() => navigate('/user')} src={userData.photoURL} alt="유저의 프사" />
+          {userData && <S.User_Name>{userData.displayName}</S.User_Name>}
+          
+          <S.Toggle_box onClick={() => {
+            if (Data.rotate == '180deg') {
+              setData({...Data, rotate: '0deg'});
+            } else {
+              setData({...Data, rotate: '180deg'});
+            }
+          }}>
+            {Data.data}
+            <S.Triangle rotate={Data.rotate} />
+          </S.Toggle_box>
+
+          { Data.rotate == '180deg' &&
+            <S.Toggle_menu_box>
+              <S.Toggle_item onClick={() => setData({data: '퇴근', rotate: '0deg'})}>퇴근</S.Toggle_item>
+              <S.Toggle_item onClick={() => setData({data: '출근 중', rotate: '0deg'})}>출근 중</S.Toggle_item>
+              <S.Toggle_item onClick={() => setData({data: '회의 중', rotate: '0deg'})}>회의 중</S.Toggle_item>
+              <S.Toggle_item onClick={() => setData({data: '휴식 중', rotate: '0deg'})}>휴식 중</S.Toggle_item>
+              <S.Toggle_item bottom='none' onClick={() => setData({data: '기타', rotate: '0deg'})}>기타</S.Toggle_item>
+            </S.Toggle_menu_box>
+          }
+          <S.Alert_Image src={LogoutImg} onClick={() => Logout_question()} alt="로그아웃" />
+        </S.User_box>
       ) : (
-        <img src={googleLove} alt="" onClick={handleGoogleLogin} />
+        <button onClick={handleGoogleLogin}>로그인</button>
       )}
     </div>
   );

@@ -33,17 +33,18 @@ export default function KakaoMap() {
     <>
       {lat ? (
         <>
+          <Timer />
           <Map
             center={{ lat: lat, lng: lng }}
-            style={{ width: "70%", height: "500px", margin: "0 auto" }}
+            style={{ width: "500px", height: "500px", margin: "0 auto" }}
           >
             <MapMarker position={{ lat: lat, lng: lng }}>
-              <span>현재 나의 근무지</span>
+              <span style={{ color: "#000" }}>현재 나의 위치</span>
             </MapMarker>
           </Map>
         </>
       ) : (
-        <div>GPS가 지원되지 않는 기기입니다.</div>
+        <></>
       )}
     </>
   );

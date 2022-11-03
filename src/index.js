@@ -1,5 +1,6 @@
 import { render } from "react-dom";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import './index.css';
 import App from "./App";
 import Header from "./components/header/index";
 import UserInfo from "./components/user/userInfo";
