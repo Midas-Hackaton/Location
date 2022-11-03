@@ -7,8 +7,8 @@ const Main = () => {
   const db = getDatabase();
   const [isSpace, setIsSpace] = React.useState(false);
   const [mylocation, setMylocation] = React.useState({
-    latitude: 0,
-    longitude: 0,
+    latitude: 37.402031,
+    longitude: 127.1013722,
   });
   const userRef = ref(
     db,
@@ -17,6 +17,7 @@ const Main = () => {
   const setData = () => {
     getLocation().then((response) => {
       setMylocation(response);
+
       onValue(userRef, (response) => {
         console.log(mylocation);
         console.log(response.val());
@@ -25,7 +26,7 @@ const Main = () => {
           Math.abs(mylocation.latitude - response.val().space[0]) +
           Math.abs(mylocation.longitude - response.val().space[1]);
         console.log(gap);
-        if (gap > 0.001) {
+        if (gap > 0.3) {
           setIsSpace(false);
         } else {
           setIsSpace(true);
