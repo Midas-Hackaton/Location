@@ -2,7 +2,6 @@ import React from "react";
 import { initializeApp } from "firebase/app";
 import { getDatabase, onValue, ref, set } from "firebase/database";
 import { firebaseConfig } from "../../config/firebaseConfig";
-import { getLocation } from "../../util/map";
 
 export const app = initializeApp(firebaseConfig);
 
@@ -32,23 +31,9 @@ function UserInfo() {
   };
 
   React.useEffect(() => {
-    try {
-      const localStorageUserData = JSON.parse(localStorage.getItem("user"));
-      setUserData(JSON.parse(localStorage.getItem("user")));
-      setData();
-      getLocation().then((response) => {
-        set(userRef, {
-          name: localStorageUserData.displayName,
-          email: localStorageUserData.email,
-          profile_picture: localStorageUserData.photoURL,
-          space: [response.latitude, response.longitude], // 유저의 현재 위치
-          companyCode: localStorage.getItem("userCompany"),
-          companyName: localStorage.getItem("companyName"),
-        });
-      });
-    } catch {
-      console.log("비로그인");
-    }
+    const localStorageUserData = JSON.parse(localStorage.getItem("user"));
+    setUserData(localStorageUserData);
+    setData();
   }, []);
 
   return (
@@ -59,7 +44,6 @@ function UserInfo() {
           setCompanyCode(e.target.value);
         }}
       />
-      {/* <div>{userData.displayName}</div> */}
       <button onClick={companySubmit}>회사정보 등록하기</button>
     </div>
   );

@@ -19,9 +19,6 @@ const Main = () => {
   const [hours, setHour] = useState(0);
   const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(0);
-  const [userHours, setUserHour] = useState(0);
-  const [userMinutes, setUserMinutes] = useState(0);
-  const [userSeconds, setUserSeconds] = useState(0);
   const [btnCh, setBtnCh] = useState(false);
 
   const db = getDatabase();
@@ -112,8 +109,6 @@ const Main = () => {
     if (btnCh) {
       setBtnCh(false);
       const localStorageUserData = JSON.parse(localStorage.getItem("user"));
-      console.log([leftHours, leftMinutes, leftSeconds].join(":"));
-      console.log([userHours, userMinutes, userSeconds].join(":"));
 
       getLocation().then((response) => {
         set(userRef, {

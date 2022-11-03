@@ -20,8 +20,9 @@ function Login() {
       .then((data) => {
         setUserData(data.user); // user data 설정
         setCookie("token", data._tokenResponse.oauthAccessToken);
-        localStorage.setItem("user", JSON.stringify(data.user));
-
+        const userData = JSON.stringify(data.user);
+        console.log(userData);
+        localStorage.setItem("user", userData);
         refreshPage();
       })
       .catch((err) => {
