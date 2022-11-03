@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { getDatabase, onValue, push, ref, set } from "firebase/database";
 import { getLocation } from "../../util/map";
-
+import * as S from "./timer.style";
 //타이머
 const Main = () => {
   const db = getDatabase();
@@ -120,31 +120,33 @@ const Main = () => {
   };
 
   return (
-    <div className="main">
-      {isSpace ? (
-        <div>지정된 장소입니다.</div>
-      ) : (
-        <div>지정된 장소가 아닙니다.</div>
-      )}
+    <S.UserContainer>
       <div>
         <h2>
-          {hours}:{minutes < 10 ? `0${minutes}` : minutes}:
-          {seconds < 10 ? `0${seconds}` : seconds}
+          현재 상태 :
+          {isSpace ? (
+            <span style={{ color: "green" }}> 출근 중</span>
+          ) : (
+            <span style={{ color: "red" }}> 휴식 중</span>
+          )}
         </h2>
-      </div>
-      <div>
         <h2>
-          <span>남은시간 </span>
+          <span>남은 출근 시간 : </span>
           {leftHours}:{leftMinutes < 10 ? `0${leftMinutes}` : leftMinutes}:
           {leftSeconds < 10 ? `0${leftSeconds}` : leftSeconds}
         </h2>
+        <h2>
+          <span>현재 근무 시간 : </span>
+          {hours}:{minutes < 10 ? `0${minutes}` : minutes}:
+          {seconds < 10 ? `0${seconds}` : seconds}
+        </h2>
+        {setBtnCh ? (
+          <button onClick={BtnClick}>근무하기</button>
+        ) : (
+          <button onClick={BtnClick}>휴식하기</button>
+        )}
       </div>
-      {setBtnCh ? (
-        <button onClick={BtnClick}>중지</button>
-      ) : (
-        <button onClick={BtnClick}>시작</button>
-      )}
-    </div>
+    </S.UserContainer>
   );
 };
 

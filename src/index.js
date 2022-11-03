@@ -5,7 +5,7 @@ import Header from "./components/header/index";
 import UserInfo from "./components/user/userInfo";
 import UserMap from "./components/map/kakaoMap";
 import MakeCompany from "./components/company/makeCompany";
-
+import "./index.css";
 const rootElement = document.getElementById("root");
 render(
   <BrowserRouter>

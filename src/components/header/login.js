@@ -2,8 +2,8 @@ import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import React from "react";
 import { auth } from "../../util/auth/firebase";
 import { deleteCookie, getCookie, setCookie } from "../../util/cookie/cookie";
-import { useNavigate } from "react-router-dom";
-import * as S from "./index.style"
+import { Link, useNavigate } from "react-router-dom";
+import * as S from "./index.style";
 function Login() {
   const navigate = useNavigate();
 
@@ -49,9 +49,10 @@ function Login() {
   }, []);
 
   return (
-    <div>
+    <div style={{ marginRight: "30px" }}>
       {isLogin ? (
         <S.LoginContainer>
+          <Link to={`/user`}>내 근무</Link>
           <img
             src={userData.photoURL}
             alt="유저의 프사"

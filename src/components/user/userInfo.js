@@ -3,6 +3,9 @@ import { initializeApp } from "firebase/app";
 import { getDatabase, onValue, push, ref, set } from "firebase/database";
 import { firebaseConfig } from "../../config/firebaseConfig";
 import { getLocation } from "../../util/map";
+import MapInfo from "../../components/map/kakaoMap";
+import * as S from "./userInfo.style";
+import Timer from "../timer/timer";
 
 export const app = initializeApp(firebaseConfig);
 
@@ -14,8 +17,6 @@ function UserInfo() {
     db,
     `userInfo/${JSON.parse(localStorage.getItem("user")).uid}`
   );
-
-
 
   const setData = (localStorageUserData) => {
     getLocation().then((response) => {
@@ -46,16 +47,20 @@ function UserInfo() {
   }, []);
 
   return (
-    <div>
-      <input
-        type="text"
-        onChange={(e) => {
-          setCompanyName(e.target.value);
-        }}
-      />
-      {/* <div>{userData.displayName}</div> */}
-      <button onClick={companySubmit}>회사정보 등록하기</button>
-    </div>
+    <S.UserMapContainer>
+      <div style={{ marginTop: "10px", marginLeft: "40px" }}>
+        <input
+          type="text"
+          onChange={(e) => {
+            setCompanyName(e.target.value);
+          }}
+          placeholder={`회사의 초대코드 (24자리)`}
+        />
+        <button onClick={companySubmit}>회사정보 등록하기</button>
+        <Timer />
+      </div>
+      <MapInfo />
+    </S.UserMapContainer>
   );
 }
 
