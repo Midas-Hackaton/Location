@@ -1,5 +1,5 @@
 import React from "react";
-import { getDatabase, onValue, push, ref, set } from "firebase/database";
+import { getDatabase, ref, set } from "firebase/database";
 import { v4 as uuidv4 } from "uuid";
 
 function MakeCompany() {

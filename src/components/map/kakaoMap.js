@@ -26,7 +26,6 @@ export default function KakaoMap() {
       setLng(response.longitude);
       console.log(response);
     });
-    console.log(getData());
   }, []);
 
   return (
@@ -36,7 +35,7 @@ export default function KakaoMap() {
           <Timer />
           <Map
             center={{ lat: lat, lng: lng }}
-            style={{ width: "500px", height: "500px", margin: "0 auto" }}
+            style={{ width: "70%", height: "500px", margin: "0 auto" }}
           >
             <MapMarker position={{ lat: lat, lng: lng }}>
               <span style={{ color: "#000" }}>현재 나의 위치</span>
@@ -44,7 +43,7 @@ export default function KakaoMap() {
           </Map>
         </>
       ) : (
-        <></>
+        <div>GPS기능이 지원되지 않는 기기입니다.</div>
       )}
     </>
   );

@@ -1,10 +1,8 @@
 import React from "react";
 import { initializeApp } from "firebase/app";
-import { getDatabase, onValue, query, ref, set } from "firebase/database";
-import { limit, where } from "firebase/firestore";
+import { getDatabase, onValue, ref, set } from "firebase/database";
 import { firebaseConfig } from "../../config/firebaseConfig";
 import { getLocation } from "../../util/map";
-import { v4 as uuidv4 } from "uuid";
 
 export const app = initializeApp(firebaseConfig);
 
@@ -17,7 +15,7 @@ function UserInfo() {
     `userInfo/${JSON.parse(localStorage.getItem("user")).uid}`
   );
 
-  const setData = (localStorageUserData) => {
+  const setData = () => {
     const companyRef = ref(
       db,
       `company/${localStorage.getItem("userCompany")}`
@@ -37,8 +35,7 @@ function UserInfo() {
     try {
       const localStorageUserData = JSON.parse(localStorage.getItem("user"));
       setUserData(JSON.parse(localStorage.getItem("user")));
-      setData(localStorageUserData);
-
+      setData();
       getLocation().then((response) => {
         set(userRef, {
           name: localStorageUserData.displayName,
