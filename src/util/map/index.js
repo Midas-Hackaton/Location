@@ -1,18 +1,14 @@
 export function getLocation() {
   if (navigator.geolocation) {
-    // GPS를 지원하면
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       navigator.geolocation.getCurrentPosition(
-        function(position) {
-          console.info(
-            `re:${position.coords.latitude} ${position.coords.longitude}`,
-          );
+        function (position) {
           resolve({
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
           });
         },
-        function(error) {
+        function (error) {
           console.error(error);
           resolve({
             latitude: 37.3595704,
@@ -23,14 +19,13 @@ export function getLocation() {
           enableHighAccuracy: false,
           maximumAge: 0,
           timeout: Infinity,
-        },
+        }
       );
-    }).then(coords => {
-      console.log(`coords:${JSON.stringify(coords)}`);
+    }).then((coords) => {
       return coords;
     });
   }
-  console.info('GPS를 지원하지 않습니다');
+  console.info("GPS를 지원하지 않습니다");
   return {
     latitude: 37.3595704,
     longitude: 127.105399,

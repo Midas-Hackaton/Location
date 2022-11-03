@@ -5,12 +5,14 @@ import { getLocation } from "../../util/map/index";
 export default function KakaoMap() {
   const [lat, setLat] = React.useState();
   const [lng, setLng] = React.useState();
-  console.log(
+  React.useEffect(() => {
     getLocation().then((response) => {
       setLat(response.latitude);
       setLng(response.longitude);
-    })
-  );
+      console.log(response);
+    });
+  }, []);
+
   return (
     <>
       {lat ? (

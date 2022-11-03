@@ -2,6 +2,7 @@ import React from "react";
 import { initializeApp } from "firebase/app";
 import { getDatabase, onValue, push, ref, set } from "firebase/database";
 import { firebaseConfig } from "../../config/firebaseConfig";
+import { getLocation } from "../../util/map";
 
 export const app = initializeApp(firebaseConfig);
 
@@ -21,19 +22,17 @@ function UserInfo() {
   };
 
   const setData = (localStorageUserData) => {
-    try {
+    getLocation().then((response) => {
       set(userRef, {
         name: localStorageUserData.displayName,
         email: localStorageUserData.email,
         profile_picture: localStorageUserData.photoURL,
+        space: {
+          lat: response.latitude,
+          lng: response.longitude,
+        },
       });
-    } catch {
-      push(userRef, {
-        name: localStorageUserData.displayName,
-        email: localStorageUserData.email,
-        profile_picture: localStorageUserData.photoURL,
-      });
-    }
+    });
   };
 
   React.useEffect(() => {
