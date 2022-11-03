@@ -14,11 +14,9 @@ function UserInfo() {
   );
 
   const getData = () => {
-    let data;
     onValue(userRef, (response) => {
-      data = response.val();
+      return response.val();
     });
-    return data;
   };
 
   const setData = (localStorageUserData) => {
@@ -27,24 +25,20 @@ function UserInfo() {
         name: localStorageUserData.displayName,
         email: localStorageUserData.email,
         profile_picture: localStorageUserData.photoURL,
-        space: {
-          lat: response.latitude,
-          lng: response.longitude,
-        },
+        space: [response.latitude, response.longitude], // 유저의 현재 위치
       });
     });
   };
 
   React.useEffect(() => {
-    const localStorageUserData = JSON.parse(localStorage.getItem("user"));
-    console.log(localStorageUserData);
-    setData(localStorageUserData);
     try {
-      console.log(getData());
-    } catch (err) {
-      console.log(err);
+      const localStorageUserData = JSON.parse(localStorage.getItem("user"));
+      console.log(localStorageUserData);
+      setData(localStorageUserData);
+    } catch {
+      return console.log("비로그인");
     }
-  }, []);
+  }, [getData]);
 
   return <div>유저인포</div>;
 }
